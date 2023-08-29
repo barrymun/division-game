@@ -54,10 +54,10 @@ const Display = (): HTMLDivElement => {
 const Selected = (): HTMLDivElement => {
   return div(
     {class: "selected"},
-    div({onclick: () => --twentyCount.val}, twentyCount),
-    div({onclick: () => --tenCount.val}, tenCount),
-    div({onclick: () => --fiveCount.val}, fiveCount),
-    div({onclick: () => --oneCount.val}, oneCount),
+    div({onclick: () => twentyCount.val > 0 ? --twentyCount.val : 0}, twentyCount),
+    div({onclick: () => tenCount.val > 0 ? --tenCount.val : 0}, tenCount),
+    div({onclick: () => fiveCount.val > 0 ? --fiveCount.val : 0}, fiveCount),
+    div({onclick: () => oneCount.val > 0 ? --oneCount.val : 0}, oneCount),
   );
 };
 
