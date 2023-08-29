@@ -6,7 +6,7 @@ const {button, div, pre} = van.tags
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-const Run = ({ sleepMs }: { sleepMs: number }) => {
+const Run = ({ sleepMs }: { sleepMs: number }): HTMLPreElement => {
   const headingSpaces = van.state(40);
   const trailingUnderscores = van.state(0);
 
