@@ -2,7 +2,7 @@ import van from "vanjs-core";
 
 import './style.css';
 
-const {button, div, pre} = van.tags
+const {button, div} = van.tags
 
 // const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -37,13 +37,46 @@ const {button, div, pre} = van.tags
 
 let numbertoDivide = van.state(1276);
 let divisor = van.state(2);
+let twentyCount = van.state(0);
+// van.derive(() => console.log(`Counter: ${twentyCount.val}`))
+let tenCount = van.state(0);
+let fiveCount = van.state(0);
+let oneCount = van.state(0);
 
 const Display = (): HTMLDivElement => {
   return div(
-    {class: "container"},
+    {class: "display"},
     div(numbertoDivide.val),
     div(`Divided by ${divisor.val}`),
   );
 };
 
-van.add(document.getElementById('app')!, Display());
+const Selected = (): HTMLDivElement => {
+  return div(
+    {class: "selected"},
+    div({onclick: () => --twentyCount.val}, twentyCount),
+    div({onclick: () => --tenCount.val}, tenCount),
+    div({onclick: () => --fiveCount.val}, fiveCount),
+    div({onclick: () => --oneCount.val}, oneCount),
+  );
+};
+
+const Buttons = (): HTMLDivElement => {
+  return div(
+    {class: "buttons"},
+    button({onclick: () => ++twentyCount.val}, "20"),
+    button({onclick: () => ++tenCount.val}, "10"),
+    button({onclick: () => ++fiveCount.val}, "5"),
+    button({onclick: () => ++oneCount.val}, "1"),
+  );
+};
+
+const App = (): HTMLDivElement => {
+  return div(
+    Display(),
+    Selected(),
+    Buttons(),
+  );
+};
+
+van.add(document.getElementById('app')!, App());

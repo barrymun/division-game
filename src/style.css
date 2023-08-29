@@ -38,6 +38,10 @@ body {
   height: 100%;
 }
 
-.container {
+.display {
   text-align: center;
+}
+
+.selected {
+  display: flex;
 }
