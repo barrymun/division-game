@@ -51,6 +51,13 @@ const Display = (): HTMLDivElement => {
   );
 };
 
+const InteractiveSum = (): HTMLDivElement => {
+  const value = van.derive(() => {
+    return twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+  });
+  return div(value);
+};
+
 const Interactive = (): HTMLDivElement => {
   return div({class: "interactive"},
     div({
@@ -87,6 +94,7 @@ const Interactive = (): HTMLDivElement => {
 const App = (): HTMLDivElement => {
   return div(
     Display(),
+    InteractiveSum(),
     Interactive(),
   );
 };
