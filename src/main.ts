@@ -51,32 +51,44 @@ const Display = (): HTMLDivElement => {
   );
 };
 
-const Selected = (): HTMLDivElement => {
-  return div(
-    {class: "selected"},
-    div({onclick: () => twentyCount.val > 0 ? --twentyCount.val : 0}, twentyCount),
-    div({onclick: () => tenCount.val > 0 ? --tenCount.val : 0}, tenCount),
-    div({onclick: () => fiveCount.val > 0 ? --fiveCount.val : 0}, fiveCount),
-    div({onclick: () => oneCount.val > 0 ? --oneCount.val : 0}, oneCount),
-  );
-};
-
-const Buttons = (): HTMLDivElement => {
-  return div(
-    {class: "buttons"},
-    button({onclick: () => ++twentyCount.val}, "20"),
-    button({onclick: () => ++tenCount.val}, "10"),
-    button({onclick: () => ++fiveCount.val}, "5"),
-    button({onclick: () => ++oneCount.val}, "1"),
+const Interactive = (): HTMLDivElement => {
+  return div({class: "interactive"},
+    div({
+      class: "decrementor",
+      onclick: () => twentyCount.val > 0 ? --twentyCount.val : 0
+    }, twentyCount),
+    div({
+      class: "decrementor",
+      onclick: () => tenCount.val > 0 ? --tenCount.val : 0
+    }, tenCount),
+    div({
+      class: "decrementor",
+      onclick: () => fiveCount.val > 0 ? --fiveCount.val : 0
+    }, fiveCount),
+    div({
+      class: "decrementor",
+      onclick: () => oneCount.val > 0 ? --oneCount.val : 0
+    }, oneCount),
+    div(
+      button({onclick: () => ++twentyCount.val}, "20"),
+    ),
+    div(
+      button({onclick: () => ++tenCount.val}, "10"),
+    ),
+    div(
+      button({onclick: () => ++fiveCount.val}, "5"),
+    ),
+    div(
+      button({onclick: () => ++oneCount.val}, "1"),
+    ),
   );
 };
 
 const App = (): HTMLDivElement => {
   return div(
     Display(),
-    Selected(),
-    Buttons(),
+    Interactive(),
   );
 };
 
-van.add(document.getElementById('app')!, App());
+van.add(document.getElementById('app')! as HTMLDivElement, App());
