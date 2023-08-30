@@ -1,5 +1,7 @@
 import van from "vanjs-core";
 
+import { generateNumberToDivide, randomIntFromInterval } from "utils";
+
 import './style.css';
 
 const {button, div} = van.tags
@@ -35,10 +37,12 @@ const {button, div} = van.tags
 //   );
 // }
 
-let numbertoDivide = van.state(1276);
-let divisor = van.state(2);
+let randomDivisor = randomIntFromInterval({min: 2, max: 12});
+let randomNumberToDivide = generateNumberToDivide(randomDivisor);
+
+let divisor = van.state(randomDivisor);
+let numberToDivide = van.state(randomNumberToDivide);
 let twentyCount = van.state(0);
-// van.derive(() => console.log(`Counter: ${twentyCount.val}`))
 let tenCount = van.state(0);
 let fiveCount = van.state(0);
 let oneCount = van.state(0);
@@ -46,7 +50,7 @@ let oneCount = van.state(0);
 const Display = (): HTMLDivElement => {
   return div(
     {class: "display"},
-    div(numbertoDivide.val),
+    div(numberToDivide.val),
     div(`Divided by ${divisor.val}`),
   );
 };
