@@ -3,5 +3,5 @@ export const randomIntFromInterval = ({ min, max }: { min: number, max: number }
 };
 
 export const generateNumberToDivide = (divisor: number): number => {
-  return divisor * randomIntFromInterval({ min: 50, max: 500 });
+  return divisor * randomIntFromInterval({ min: 12, max: 99 });
 };
