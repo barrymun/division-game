@@ -38,8 +38,26 @@ body {
   height: 100%;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .display {
   text-align: center;
+}
+
+.interactive-sum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: #646cff;
 }
 
 .interactive {
