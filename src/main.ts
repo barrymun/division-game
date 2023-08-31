@@ -3,7 +3,7 @@ import van from "vanjs-core";
 import { correctAnswersToWin } from "constants";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
-import './style.css';
+import 'assets/style.css';
 
 const {button, div, span} = van.tags
 
