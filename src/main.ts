@@ -42,6 +42,8 @@ let randomNumberToDivide = generateNumberToDivide(randomDivisor);
 
 let divisor = van.state(randomDivisor);
 let numberToDivide = van.state(randomNumberToDivide);
+let answer = van.state(randomNumberToDivide / randomDivisor);
+console.log(answer.val);
 let twentyCount = van.state(0);
 let tenCount = van.state(0);
 let fiveCount = van.state(0);
@@ -49,7 +51,7 @@ let oneCount = van.state(0);
 
 const Display = (): HTMLDivElement => {
   return div(
-    {class: "display"},
+    { class: "display" },
     div(numberToDivide.val),
     div(`Divided by ${divisor.val}`),
   );
@@ -97,12 +99,29 @@ const Interactive = (): HTMLDivElement => {
   );
 };
 
+const Submit = (): HTMLDivElement => {
+  return div(
+    { class: "answer" },
+    button({
+      onclick: () => {
+        const sum = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+        if (sum === answer.val) {
+          alert("Correct!");
+        } else {
+          alert(`Incorrect! The answer is ${answer.val}`);
+        }
+      },
+    }, "Submit")
+  );
+};
+
 const App = (): HTMLDivElement => {
   return div(
     { class: "container" },
     Display(),
     InteractiveSum(),
     Interactive(),
+    Submit(),
   );
 };
 
