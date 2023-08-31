@@ -45,10 +45,12 @@ body {
   flex-direction: column;
 }
 
-.lives {
+.game-info {
   position: absolute;
   top: 1em;
   right: 1em;
+
+  text-align: right;
 }
 
 .display {

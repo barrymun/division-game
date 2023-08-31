@@ -34,8 +34,15 @@ setGameNumbers();
 
 const Lives = (): HTMLDivElement => {
   return div(
-    { class: "lives" },
     div(lives),
+  );
+};
+
+const Completed = (): HTMLDivElement => {
+  return div(
+    span(correctAnswers),
+    span(" / "),
+    span(correctAnswersToWin),
   );
 };
 
@@ -43,8 +50,10 @@ const Display = (): HTMLDivElement => {
   return div(
     { class: "display" },
     div(numberToDivide),
-    span("Divided by "),
-    span(divisor),
+    div(
+      span("Divided by "),
+      span(divisor),
+    ),
   );
 };
 
@@ -116,7 +125,11 @@ const Submit = (): HTMLDivElement => {
 const App = (): HTMLDivElement => {
   return div(
     { class: "container" },
-    Lives(),
+    div(
+      { class: "game-info" },
+      Lives(),
+      Completed(),
+    ),
     Display(),
     InteractiveSum(),
     Interactive(),
@@ -132,6 +145,7 @@ van.derive(() => {
 
   if (correctAnswers.val === correctAnswersToWin) {
     alert("You win!");
+    location.reload();
   }
 });
 
