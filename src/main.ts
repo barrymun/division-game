@@ -3,9 +3,13 @@ import van from "vanjs-core";
 import { correctAnswersToWin } from "constants";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
+import backgroundSrc from 'assets/img/background.png'
+
 import 'assets/style.css';
 
-const {button, div, span} = van.tags
+const {button, div, img, span} = van.tags;
+
+const appElement = document.getElementById('app')! as HTMLDivElement;
 
 let divisor = van.state(0);
 let numberToDivide = van.state(0);
@@ -31,6 +35,13 @@ const setGameNumbers = (): void => {
 };
 
 setGameNumbers();
+
+const Background = (): HTMLImageElement => {
+  return img({ 
+    class: "background-img",
+    src: backgroundSrc,
+  });
+};
 
 const Lives = (): HTMLDivElement => {
   return div(lives);
@@ -147,4 +158,5 @@ van.derive(() => {
   }
 });
 
-van.add(document.getElementById('app')! as HTMLDivElement, App());
+van.add(appElement, Background());
+van.add(appElement, App());
