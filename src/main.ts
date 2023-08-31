@@ -33,9 +33,7 @@ const setGameNumbers = (): void => {
 setGameNumbers();
 
 const Lives = (): HTMLDivElement => {
-  return div(
-    div(lives),
-  );
+  return div(lives);
 };
 
 const Completed = (): HTMLDivElement => {
