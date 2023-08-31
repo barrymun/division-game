@@ -17,6 +17,14 @@ let twentyCount = van.state(0);
 let tenCount = van.state(0);
 let fiveCount = van.state(0);
 let oneCount = van.state(0);
+let lives = van.state(3);
+
+const Lives = (): HTMLDivElement => {
+  return div(
+    { class: "lives" },
+    div(lives),
+  );
+};
 
 const Display = (): HTMLDivElement => {
   return div(
@@ -77,7 +85,10 @@ const Submit = (): HTMLDivElement => {
         if (sum === answer.val) {
           alert("Correct!");
         } else {
-          alert(`Incorrect! The answer is ${answer.val}`);
+          --lives.val;
+          if (lives.val > 0) {
+            alert(`Incorrect! The answer is ${answer.val}`);
+          }
         }
       },
     }, "Submit")
@@ -87,6 +98,7 @@ const Submit = (): HTMLDivElement => {
 const App = (): HTMLDivElement => {
   return div(
     { class: "container" },
+    Lives(),
     Display(),
     InteractiveSum(),
     Interactive(),
@@ -95,3 +107,10 @@ const App = (): HTMLDivElement => {
 };
 
 van.add(document.getElementById('app')! as HTMLDivElement, App());
+
+van.derive(() => {
+  if (lives.val === 0) {
+    alert("Game over!");
+    location.reload();
+  }
+});

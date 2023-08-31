@@ -45,6 +45,12 @@ body {
   flex-direction: column;
 }
 
+.lives {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
 .display {
   text-align: center;
 }
