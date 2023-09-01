@@ -1,4 +1,4 @@
-import van, { State } from "vanjs-core";
+import van from "vanjs-core";
 
 import { correctAnswersToWin } from "constants";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
@@ -75,37 +75,40 @@ const InteractiveSum = (): HTMLDivElement => {
   }, value);
 };
 
-// const DecrementorMini = ({ count }: { count: number }): HTMLDivElement[] => {
-//   // return Array.from({ length: count.val }, () => div({ class: "decrementor-mini" }, ""));
-//   const value = van.derive(() => {
-//     return Array(count).map((_) => div({ class: "decrementor-mini" }, ""));
-//   });
-//   return value.val;
-// };
+const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number }) => {
+  if (count === 0) return span();
+  
+  return div(
+    { class: "decrementor-container" },
+    div({
+      class: "decrementor",
+      onclick: handleClick,
+    }, ""),
+    Array.from(
+      Array(count > 0 ? count - 1 : 0))
+        .map((_) => div({ class: "decrementor-mini" }, "")
+    )
+  );
+};
 
 const Interactive = (): HTMLDivElement => {
-  const value = van.derive(() => {
-    return span(Array.from(Array(twentyCount.val)).map((_) => div({ class: "decrementor-mini" }, "")));
-  });
-  
   return div({class: "interactive"},
-    value,
-    div({
-      class: "decrementor",
-      onclick: () => twentyCount.val > 0 ? --twentyCount.val : 0
-    }, ""),
-    div({
-      class: "decrementor",
-      onclick: () => tenCount.val > 0 ? --tenCount.val : 0
-    }, ""),
-    div({
-      class: "decrementor",
-      onclick: () => fiveCount.val > 0 ? --fiveCount.val : 0
-    }, ""),
-    div({
-      class: "decrementor",
-      onclick: () => oneCount.val > 0 ? --oneCount.val : 0
-    }, ""),
+    van.derive(() => Decrementor({ 
+      handleClick: () => twentyCount.val > 0 ? --twentyCount.val : 0,
+      count: twentyCount.val,
+    })),
+    van.derive(() => Decrementor({ 
+      handleClick: () => tenCount.val > 0 ? --tenCount.val : 0,
+      count: tenCount.val,
+    })),
+    van.derive(() => Decrementor({ 
+      handleClick: () => fiveCount.val > 0 ? --fiveCount.val : 0,
+      count: fiveCount.val,
+    })),
+    van.derive(() => Decrementor({ 
+      handleClick: () => oneCount.val > 0 ? --oneCount.val : 0,
+      count: oneCount.val,
+    })),
     div(
       button({onclick: () => ++twentyCount.val}, "20"),
     ),
