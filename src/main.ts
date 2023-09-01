@@ -81,12 +81,12 @@ const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: n
   return div(
     { class: "decrementor-container" },
     div({
-      class: "decrementor",
+      class: "decrementor decrementor-full",
       onclick: handleClick,
     }, ""),
     Array.from(
       Array(count > 0 ? count - 1 : 0))
-        .map((_) => div({ class: "decrementor-mini" }, "")
+        .map((_) => div({ class: "decrementor decrementor-mini" }, "")
     )
   );
 };
