@@ -80,19 +80,19 @@ const Interactive = (): HTMLDivElement => {
     div({
       class: "decrementor",
       onclick: () => twentyCount.val > 0 ? --twentyCount.val : 0
-    }, twentyCount),
+    }, ""),
     div({
       class: "decrementor",
       onclick: () => tenCount.val > 0 ? --tenCount.val : 0
-    }, tenCount),
+    }, ""),
     div({
       class: "decrementor",
       onclick: () => fiveCount.val > 0 ? --fiveCount.val : 0
-    }, fiveCount),
+    }, ""),
     div({
       class: "decrementor",
       onclick: () => oneCount.val > 0 ? --oneCount.val : 0
-    }, oneCount),
+    }, ""),
     div(
       button({onclick: () => ++twentyCount.val}, "20"),
     ),
