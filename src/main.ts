@@ -1,4 +1,4 @@
-import van from "vanjs-core";
+import van, { State } from "vanjs-core";
 
 import { correctAnswersToWin } from "constants";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
@@ -75,8 +75,21 @@ const InteractiveSum = (): HTMLDivElement => {
   }, value);
 };
 
+// const DecrementorMini = ({ count }: { count: number }): HTMLDivElement[] => {
+//   // return Array.from({ length: count.val }, () => div({ class: "decrementor-mini" }, ""));
+//   const value = van.derive(() => {
+//     return Array(count).map((_) => div({ class: "decrementor-mini" }, ""));
+//   });
+//   return value.val;
+// };
+
 const Interactive = (): HTMLDivElement => {
+  const value = van.derive(() => {
+    return span(Array.from(Array(twentyCount.val)).map((_) => div({ class: "decrementor-mini" }, "")));
+  });
+  
   return div({class: "interactive"},
+    value,
     div({
       class: "decrementor",
       onclick: () => twentyCount.val > 0 ? --twentyCount.val : 0
