@@ -1,5 +1,6 @@
 import van from "vanjs-core";
 
+import { Spacer } from "components";
 import { correctAnswersToWin } from "constants";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
@@ -7,7 +8,7 @@ import backgroundSrc from 'assets/img/background.png'
 
 import 'assets/style.css';
 
-const {button, div, img, span} = van.tags;
+const { button, div, img, span } = van.tags;
 
 const appElement = document.getElementById('app')! as HTMLDivElement;
 
@@ -157,6 +158,7 @@ const App = (): HTMLDivElement => {
     ),
     Display(),
     InteractiveSum(),
+    Spacer(),
     Interactive(),
     Submit(),
   );
