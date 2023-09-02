@@ -75,13 +75,21 @@ const Display = (): HTMLDivElement => {
   );
 };
 
-const InteractiveSum = (): HTMLDivElement => {
+const InteractiveSum = () => {
   const value = van.derive(() => {
     return twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
   });
-  return div({
-    class: "interactive-sum",
-  }, value);
+
+  return van.derive(() => {
+    const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+    if (sum === 0) {
+      return div();
+    } else {
+      return div({
+        class: "interactive-sum",
+      }, value);
+    }
+  });
 };
 
 const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number }) => {

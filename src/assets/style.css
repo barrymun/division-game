@@ -99,9 +99,11 @@ body {
   align-items: center;
   justify-content: center;
 
-  border-radius: 50%;
   width: 100px;
   height: 100px;
+  min-height: 9rem;
+  min-width: 9rem;
+  border-radius: 50%;
   background-color: #646cff;
 }
 
