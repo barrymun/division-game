@@ -64,13 +64,16 @@ body {
 
   object-fit: cover;
 
-  opacity: 0.6;
+  /* opacity: 0.6; */
 }
 
 .container {
+  width: 100%;
+  height: 100%;
+  
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
 
   z-index: 1;
@@ -82,10 +85,13 @@ body {
   right: 1em;
 
   text-align: right;
+  color: #242424;
+  font-size: 0.5rem;
 }
 
 .display {
   text-align: center;
+  color: #242424;
 }
 
 .interactive-sum {
@@ -132,4 +138,16 @@ body {
 .decrementor-mini {
   height: 6px;
   margin-top: 2px;
+}
+
+.incrementor {
+  padding: 8px;
+}
+
+.top-section {
+  margin-top: 1.5rem;
+}
+
+.bottom-section {
+  margin-bottom: 1.5rem;
 }

@@ -56,6 +56,14 @@ const Completed = (): HTMLDivElement => {
   );
 };
 
+const GameInfo = (): HTMLDivElement => {
+  return div(
+    { class: "game-info" },
+    Lives(),
+    Completed(),
+  );
+};
+
 const Display = (): HTMLDivElement => {
   return div(
     { class: "display" },
@@ -111,16 +119,28 @@ const Interactive = (): HTMLDivElement => {
       count: oneCount.val,
     })),
     div(
-      button({onclick: () => ++twentyCount.val}, "20"),
+      button({
+        class: "incrementor",
+        onclick: () => ++twentyCount.val
+      }, "20"),
     ),
     div(
-      button({onclick: () => ++tenCount.val}, "10"),
+      button({
+        class: "incrementor",
+        onclick: () => ++tenCount.val
+      }, "10"),
     ),
     div(
-      button({onclick: () => ++fiveCount.val}, "5"),
+      button({
+        class: "incrementor",
+        onclick: () => ++fiveCount.val
+      }, "5"),
     ),
     div(
-      button({onclick: () => ++oneCount.val}, "1"),
+      button({
+        class: "incrementor",
+        onclick: () => ++oneCount.val
+      }, "1"),
     ),
   );
 };
@@ -152,15 +172,19 @@ const App = (): HTMLDivElement => {
   return div(
     { class: "container" },
     div(
-      { class: "game-info" },
-      Lives(),
-      Completed(),
+      { class: "top-section" },
+      Display(),
     ),
-    Display(),
-    InteractiveSum(),
-    Spacer(),
-    Interactive(),
-    Submit(),
+    div(
+      { class: "mid-section" },
+      InteractiveSum(),
+    ),
+    div(
+      { class: "bottom-section" },
+      Interactive(),
+      Spacer(),
+      Submit(),
+    ),
   );
 };
 
@@ -177,4 +201,5 @@ van.derive(() => {
 });
 
 van.add(appElement, Background());
+van.add(appElement, GameInfo());
 van.add(appElement, App());
