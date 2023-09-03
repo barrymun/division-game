@@ -105,8 +105,32 @@ body {
   min-width: 9rem;
   border-radius: 50%;
   background-color: #646cff;
+}
 
-  opacity: 0;
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+.interactive-sum-show {
+  animation: fadeIn 1.5s forwards;
+}
+
+.interactive-sum-hide {
+  animation: fadeOut 1.5s forwards;
 }
 
 .interactive {

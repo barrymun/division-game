@@ -1,4 +1,3 @@
-import gsap from "gsap";
 import van from "vanjs-core";
 
 import { Spacer } from "components";
@@ -12,7 +11,6 @@ import 'assets/style.css';
 const { button, div, img, span } = van.tags;
 
 const domEntrypoint = document.getElementById('app')! as HTMLDivElement;
-// const midSection = document.querySelector('.mid-section')! as HTMLDivElement;
 
 let divisor = van.state(0);
 let numberToDivide = van.state(0);
@@ -79,12 +77,16 @@ const Display = (): HTMLDivElement => {
 
 const InteractiveSum = () => {
   return van.derive(() => {
+    const previousSum: number = twentyCount.oldVal * 20 + tenCount.oldVal * 10 + fiveCount.oldVal * 5 + oneCount.oldVal;
     const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+    console.log(previousSum, sum)
     if (sum === 0) {
-      return div();
+      return div({
+        class: previousSum > 0 ? "interactive-sum interactive-sum-hide" : "",
+      });
     } else {
       return div({
-        class: "interactive-sum",
+        class: previousSum === 0 ? "interactive-sum interactive-sum-show" : "interactive-sum",
       }, sum);
     }
   });
@@ -194,13 +196,6 @@ const App = (): HTMLDivElement => {
   );
 };
 
-// van.derive(() => {
-//   console.log('1')
-//   if (!document.querySelector(".interactive-sum")) return;
-//   console.log('2')
-//   gsap.fromTo(".interactive-sum", {opacity: 0}, {opacity: 1, duration: 3});
-// });
-
 van.derive(() => {
   if (lives.val === 0) {
     alert("Game over!");
@@ -217,29 +212,10 @@ van.add(domEntrypoint, Background());
 van.add(domEntrypoint, GameInfo());
 van.add(domEntrypoint, App());
 
-const observer = new MutationObserver((mutations, _observer) => {
-  // mutations.forEach((mutation) => {
-  //   console.log(mutation)
-  // });
-  console.log('1')
-  if (document.querySelector('.interactive-sum')) {
-    console.log('A')
-    gsap.fromTo(".interactive-sum", {opacity: 0}, {opacity: 1, duration: 2});
-  } else {
-    console.log('B')
-    // gsap.fromTo(".interactive-sum", {opacity: 1}, {opacity: 0, duration: 2});
-  }
-});
-
-const onLoad = (): void => {
-  // observer.observe(document.body, { attributes: true, childList: true, subtree: true });
-  // observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-  observer.observe(document.body, { childList: true, subtree: true, attributeFilter: ['class'] });
-};
+const onLoad = (): void => {};
 
 window.addEventListener("load", onLoad);
 
 window.addEventListener("unload", () => {
   window.removeEventListener("load", onLoad);
-  observer.disconnect();
 });
