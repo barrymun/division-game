@@ -89,6 +89,22 @@ body {
   margin-right: 0.3rem;
 }
 
+.restart {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+
+  display: flex;
+  height: 0.8em;
+  width: 0.8em;
+
+  z-index: 2;
+}
+.restart:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .game-info {
   position: absolute;
   top: 1em;

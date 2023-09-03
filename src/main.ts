@@ -7,6 +7,7 @@ import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
 import backgroundSrc from 'assets/img/background.png';
 import heartSrc from 'assets/img/heart.png';
+import restartSrc from 'assets/img/restart.png';
 
 import 'assets/style.css';
 
@@ -47,12 +48,21 @@ const Background = (): HTMLImageElement => {
   });
 };
 
+const Restart = (): HTMLDivElement => {
+  return div({ 
+    class: "restart",
+    onclick: () => console.log('RESTART'),
+  },
+    img({ src: restartSrc }),
+  );
+};
+
 const Lives = () => {
   return van.derive(() => {
     return div(
       Array.from(
         Array(lives.val))
-          .map(() => img({ class: "life", src: heartSrc })
+          .map(() => img({ src: heartSrc, class: "life" })
       )
     );
   });
@@ -242,6 +252,7 @@ van.derive(() => {
 });
 
 van.add(domEntrypoint, Background());
+van.add(domEntrypoint, Restart());
 van.add(domEntrypoint, GameInfo());
 van.add(domEntrypoint, App());
 van.add(domEntrypoint, AlertContainer());
