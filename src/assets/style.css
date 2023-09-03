@@ -105,6 +105,8 @@ body {
   min-width: 9rem;
   border-radius: 50%;
   background-color: #646cff;
+
+  opacity: 0;
 }
 
 .interactive {
