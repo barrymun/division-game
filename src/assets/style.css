@@ -205,9 +205,10 @@ body {
 }
 
 .alert {
-  position: absolute;
-  top: 1em;
-  left: 1em;
+  position: fixed;
+  top: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
 
   text-align: left;
   font-size: 0.6rem;

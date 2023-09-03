@@ -24,7 +24,6 @@ let oneCount = van.state(0);
 let lives = van.state(3);
 let correctAnswers = van.state(0);
 let alertMessage: State<AlertMessage> = van.state(AlertMessage.Blank);
-// let alertMessage: State<AlertMessage> = van.state(AlertMessage.Correct);
 
 const setGameNumbers = (): void => {
   let randomDivisor = randomIntFromInterval({min: 2, max: 12});
@@ -175,13 +174,11 @@ const Submit = (): HTMLDivElement => {
         if (sum === answer.val) {
           ++correctAnswers.val;
           if (correctAnswers.val < correctAnswersToWin) {
-            // alert("Correct!");
             alertMessage.val = AlertMessage.Correct;
           }
         } else {
           --lives.val;
           if (lives.val > 0) {
-            // alert(`Incorrect! The answer is ${answer.val}`);
             alertMessage.val = AlertMessage.Incorrect;
           }
         }
@@ -220,12 +217,12 @@ const AlertContainer = (): HTMLDivElement => {
 
 van.derive(() => {
   if (lives.val === 0) {
-    alert("Game over!");
+    alertMessage.val = AlertMessage.Lose;
     location.reload();
   }
 
   if (correctAnswers.val === correctAnswersToWin) {
-    alert("You win!");
+    alertMessage.val = AlertMessage.Win;
     location.reload();
   }
 });
