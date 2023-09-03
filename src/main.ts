@@ -103,10 +103,12 @@ const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: n
   if (count === 0) return span();
   
   return div(
-    { class: "decrementor-container" },
+    { 
+      class: "decrementor-container",
+      onclick: handleClick,
+    },
     div({
       class: "decrementor decrementor-full",
-      onclick: handleClick,
     }, ""),
     Array.from(
       Array(count > 0 ? count - 1 : 0))

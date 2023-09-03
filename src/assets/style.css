@@ -146,6 +146,10 @@ body {
   justify-content: flex-end;
   flex-direction: column;
 }
+.decrementor-container:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
 
 .decrementor {
   width: 100%;
@@ -154,17 +158,13 @@ body {
 
   background-color: #646cff;
 }
-.decrementor:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
 
 .decrementor-full {
   height: 24px;
 }
 
 .decrementor-mini {
-  height: 6px;
+  height: 4px;
   margin-top: 2px;
 }
 
