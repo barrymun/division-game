@@ -1,7 +1,8 @@
-import van from "vanjs-core";
+import van, { State } from "vanjs-core";
 
-import { Spacer } from "components";
+import { Alert, Spacer } from "components";
 import { correctAnswersToWin } from "constants";
+import { AlertMessage } from "types";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
 import backgroundSrc from 'assets/img/background.png';
@@ -22,6 +23,8 @@ let fiveCount = van.state(0);
 let oneCount = van.state(0);
 let lives = van.state(3);
 let correctAnswers = van.state(0);
+let alertMessage: State<AlertMessage> = van.state(AlertMessage.Blank);
+// let alertMessage: State<AlertMessage> = van.state(AlertMessage.Correct);
 
 const setGameNumbers = (): void => {
   let randomDivisor = randomIntFromInterval({min: 2, max: 12});
@@ -172,12 +175,14 @@ const Submit = (): HTMLDivElement => {
         if (sum === answer.val) {
           ++correctAnswers.val;
           if (correctAnswers.val < correctAnswersToWin) {
-            alert("Correct!");
+            // alert("Correct!");
+            alertMessage.val = AlertMessage.Correct;
           }
         } else {
           --lives.val;
           if (lives.val > 0) {
-            alert(`Incorrect! The answer is ${answer.val}`);
+            // alert(`Incorrect! The answer is ${answer.val}`);
+            alertMessage.val = AlertMessage.Incorrect;
           }
         }
         setGameNumbers();
@@ -206,6 +211,13 @@ const App = (): HTMLDivElement => {
   );
 };
 
+const AlertContainer = (): HTMLDivElement => {
+  return div(
+    { class: "alert-container" },
+    van.derive(() => Alert(alertMessage.val)),
+  );
+};
+
 van.derive(() => {
   if (lives.val === 0) {
     alert("Game over!");
@@ -218,9 +230,24 @@ van.derive(() => {
   }
 });
 
+van.derive(() => {
+  if (alertMessage.val === AlertMessage.Correct) {
+    setTimeout(() => {
+      alertMessage.val = AlertMessage.Blank;
+    }, 1000);
+  }
+
+  if (alertMessage.val === AlertMessage.Incorrect) {
+    setTimeout(() => {
+      alertMessage.val = AlertMessage.Blank;
+    }, 2000);
+  }
+});
+
 van.add(domEntrypoint, Background());
 van.add(domEntrypoint, GameInfo());
 van.add(domEntrypoint, App());
+van.add(domEntrypoint, AlertContainer());
 
 const onLoad = (): void => {};
 

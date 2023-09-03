@@ -203,3 +203,27 @@ body {
   width: 1rem;
   height: 1rem;
 }
+
+.alert {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+
+  text-align: left;
+  font-size: 0.6rem;
+
+  padding: 2px 4px;
+
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: green;
+  color: #ffffff;
+}
+
+.alert-fail {
+  background-color: red;
+  color: #ffffff;
+}
