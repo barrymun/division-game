@@ -188,3 +188,8 @@ body {
   flex-direction: column;
   justify-content: flex-end;
 }
+
+.life {
+  width: 1rem;
+  height: 1rem;
+}

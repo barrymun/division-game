@@ -4,7 +4,8 @@ import { Spacer } from "components";
 import { correctAnswersToWin } from "constants";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
-import backgroundSrc from 'assets/img/background.png'
+import backgroundSrc from 'assets/img/background.png';
+import heartSrc from 'assets/img/heart.png';
 
 import 'assets/style.css';
 
@@ -44,8 +45,15 @@ const Background = (): HTMLImageElement => {
   });
 };
 
-const Lives = (): HTMLDivElement => {
-  return div(lives);
+const Lives = () => {
+  return van.derive(() => {
+    return div(
+      Array.from(
+        Array(lives.val))
+          .map(() => img({ class: "life", src: heartSrc })
+      )
+    );
+  });
 };
 
 const Completed = (): HTMLDivElement => {
@@ -91,7 +99,7 @@ const InteractiveSum = () => {
   });
 };
 
-const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number }) => {
+const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number; }) => {
   if (count === 0) return span();
   
   return div(
@@ -102,7 +110,7 @@ const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: n
     }, ""),
     Array.from(
       Array(count > 0 ? count - 1 : 0))
-        .map((_) => div({ class: "decrementor decrementor-mini" }, "")
+        .map(() => div({ class: "decrementor decrementor-mini" }, "")
     )
   );
 };
