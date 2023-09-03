@@ -58,6 +58,7 @@ const Lives = () => {
 
 const Completed = (): HTMLDivElement => {
   return div(
+    { class: "completed" },
     span(correctAnswers),
     span(" / "),
     span(correctAnswersToWin),

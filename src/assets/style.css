@@ -85,6 +85,10 @@ body {
   z-index: 1;
 }
 
+.completed {
+  margin-right: 0.3rem;
+}
+
 .game-info {
   position: absolute;
   top: 1em;
@@ -92,7 +96,7 @@ body {
 
   text-align: right;
   color: #242424;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
 }
 
 .display {
