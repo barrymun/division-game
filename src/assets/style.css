@@ -173,9 +173,18 @@ body {
 }
 
 .top-section {
+  flex: 1;
   margin-top: 1.5rem;
+}
+
+.mid-section {
+  flex: 1;
 }
 
 .bottom-section {
   margin-bottom: 1.5rem;
+  height: 33vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

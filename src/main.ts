@@ -79,7 +79,6 @@ const InteractiveSum = () => {
   return van.derive(() => {
     const previousSum: number = twentyCount.oldVal * 20 + tenCount.oldVal * 10 + fiveCount.oldVal * 5 + oneCount.oldVal;
     const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
-    console.log(previousSum, sum)
     if (sum === 0) {
       return div({
         class: previousSum > 0 ? "interactive-sum interactive-sum-hide" : "",
