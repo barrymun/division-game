@@ -62,6 +62,7 @@ Now, the game should be running on `http://localhost:5173`.
 - Images, including background visuals, are sourced from [midjourney](https://www.midjourney.com/).
 - Game prompts and design by the author.
 - Inspired by the exercises on [Elevate](https://elevateapp.com/).
+- A heartfelt thank you to [VanJS](https://vanjs.org/) for their work.
 
 ## License
 
