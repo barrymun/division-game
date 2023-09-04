@@ -13,7 +13,7 @@ import restartSrc from 'assets/img/restart.png';
 
 import 'assets/style.css';
 
-const { button, div, img, span } = van.tags;
+const { button, div, img, p, span } = van.tags;
 
 const domEntrypoint = document.getElementById('app')! as HTMLDivElement;
 
@@ -252,7 +252,7 @@ const InfoPanel = () => {
       { class: "info-panel" },
       div(
         { class: "info-panel-header" },
-        span("How to play"),
+        div("How to play"),
         img({ 
           class: "info-panel-close",
           src: closeSrc,
@@ -261,25 +261,25 @@ const InfoPanel = () => {
       ),
       div(
         { class: "info-panel-body" },
-        div(
+        p(
           { class: "info-panel-body-section" },
           span("Divide the number on the left by the number on the right."),
         ),
-        div(
+        p(
           { class: "info-panel-body-section" },
-          span("Use the buttons below to add or subtract from the sum."),
+          span("Use the buttons to add or subtract from the sum."),
         ),
-        div(
+        p(
           { class: "info-panel-body-section" },
           span("Click submit to check your answer."),
         ),
-        div(
+        p(
           { class: "info-panel-body-section" },
           span("You have "),
           span(startingLives),
           span(" lives."),
         ),
-        div(
+        p(
           { class: "info-panel-body-section" },
           span("You need "),
           span(correctAnswersToWin),
