@@ -137,8 +137,8 @@ const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: n
   );
 };
 
-const Interactive = (): HTMLDivElement => {
-  return div({class: "interactive"},
+const InteractiveStack = (): HTMLDivElement => {
+  return div({class: "interactive-stack"},
     van.derive(() => Decrementor({ 
       handleClick: () => twentyCount.val > 0 ? --twentyCount.val : 0,
       count: twentyCount.val,
@@ -218,7 +218,7 @@ const App = (): HTMLDivElement => {
     ),
     div(
       { class: "bottom-section" },
-      Interactive(),
+      InteractiveStack(),
       Spacer(),
       Submit(),
     ),
