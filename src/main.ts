@@ -1,7 +1,7 @@
 import van, { State } from "vanjs-core";
 
 import { Alert, Spacer } from "components";
-import { correctAnswersToWin } from "constants";
+import { correctAnswersToWin, startingLives } from "constants";
 import { AlertMessage } from "types";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
@@ -22,7 +22,7 @@ let twentyCount = van.state(0);
 let tenCount = van.state(0);
 let fiveCount = van.state(0);
 let oneCount = van.state(0);
-let lives = van.state(3);
+let lives = van.state(startingLives);
 let correctAnswers = van.state(0);
 let alertMessage: State<AlertMessage> = van.state(AlertMessage.Blank);
 
@@ -41,6 +41,13 @@ const setGameNumbers = (): void => {
 
 setGameNumbers();
 
+const restartGame = (): void => {
+  setGameNumbers();
+  lives.val = startingLives;
+  correctAnswers.val = 0;
+  alertMessage.val = AlertMessage.Blank;
+};
+
 const Background = (): HTMLImageElement => {
   return img({ 
     class: "background-img",
@@ -51,7 +58,7 @@ const Background = (): HTMLImageElement => {
 const Restart = (): HTMLDivElement => {
   return div({ 
     class: "restart",
-    onclick: () => console.log('RESTART'),
+    onclick: restartGame,
   },
     img({ src: restartSrc }),
   );
@@ -228,12 +235,12 @@ const AlertContainer = (): HTMLDivElement => {
 van.derive(() => {
   if (lives.val === 0) {
     alertMessage.val = AlertMessage.Lose;
-    location.reload();
+    restartGame();
   }
 
   if (correctAnswers.val === correctAnswersToWin) {
     alertMessage.val = AlertMessage.Win;
-    location.reload();
+    restartGame();
   }
 });
 
