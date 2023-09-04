@@ -6,6 +6,7 @@ import { AlertMessage } from "types";
 import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
 import backgroundSrc from 'assets/img/background.png';
+import closeSrc from 'assets/img/close.png';
 import heartSrc from 'assets/img/heart.png';
 import infoSrc from 'assets/img/info.png';
 import restartSrc from 'assets/img/restart.png';
@@ -26,6 +27,7 @@ let oneCount = van.state(0);
 let lives = van.state(startingLives);
 let correctAnswers = van.state(0);
 let alertMessage: State<AlertMessage> = van.state(AlertMessage.Blank);
+let showInfo = van.state(false);
 
 const setGameNumbers = (): void => {
   let randomDivisor = randomIntFromInterval({min: 2, max: 12});
@@ -47,10 +49,6 @@ const restartGame = (): void => {
   lives.val = startingLives;
   correctAnswers.val = 0;
   alertMessage.val = AlertMessage.Blank;
-};
-
-const displayInfo = (): void => {
-  alert("Divide the number on the left by the number on the right. Use the buttons below to help you!");
 };
 
 const Background = (): HTMLImageElement => {
@@ -124,8 +122,8 @@ const InteractiveSum = () => {
   });
 };
 
-const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number; }) => {
-  if (count === 0) return span();
+const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number; }): HTMLDivElement => {
+  if (count === 0) return div();
   
   return div(
     { 
@@ -240,10 +238,56 @@ const AlertContainer = (): HTMLDivElement => {
 const InfoContainer = (): HTMLDivElement => {
   return div({ 
     class: "info-container",
-    onclick: displayInfo,
+    onclick: () => showInfo.val = true,
   },
     img({ src: infoSrc }),
   );
+};
+
+const InfoPanel = () => {
+  return van.derive(() => {
+    if (!showInfo.val) return div();
+  
+    return div(
+      { class: "info-panel" },
+      div(
+        { class: "info-panel-header" },
+        span("How to play"),
+        img({ 
+          class: "info-panel-close",
+          src: closeSrc,
+          onclick: () => showInfo.val = false,
+        }),
+      ),
+      div(
+        { class: "info-panel-body" },
+        div(
+          { class: "info-panel-body-section" },
+          span("Divide the number on the left by the number on the right."),
+        ),
+        div(
+          { class: "info-panel-body-section" },
+          span("Use the buttons below to add or subtract from the sum."),
+        ),
+        div(
+          { class: "info-panel-body-section" },
+          span("Click submit to check your answer."),
+        ),
+        div(
+          { class: "info-panel-body-section" },
+          span("You have "),
+          span(startingLives),
+          span(" lives."),
+        ),
+        div(
+          { class: "info-panel-body-section" },
+          span("You need "),
+          span(correctAnswersToWin),
+          span(" correct answers to win."),
+        ),
+      ),
+    );
+  });
 };
 
 van.derive(() => {
@@ -278,6 +322,7 @@ van.add(domEntrypoint, GameInfo());
 van.add(domEntrypoint, App());
 van.add(domEntrypoint, AlertContainer());
 van.add(domEntrypoint, InfoContainer());
+van.add(domEntrypoint, InfoPanel());
 
 const onLoad = (): void => {};
 

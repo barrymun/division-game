@@ -263,4 +263,14 @@ body {
 .info-container:hover {
   cursor: pointer;
   opacity: 0.8;
-} 
+}
+
+.info-panel {
+  z-index: 3;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
