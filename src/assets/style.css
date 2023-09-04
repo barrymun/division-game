@@ -248,3 +248,19 @@ body {
   background-color: red;
   color: #ffffff;
 }
+
+.info-container {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+
+  display: flex;
+  height: 0.8em;
+  width: 0.8em;
+
+  z-index: 2;
+}
+.info-container:hover {
+  cursor: pointer;
+  opacity: 0.8;
+} 

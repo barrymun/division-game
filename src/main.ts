@@ -7,6 +7,7 @@ import { generateNumberToDivide, randomIntFromInterval } from "utils";
 
 import backgroundSrc from 'assets/img/background.png';
 import heartSrc from 'assets/img/heart.png';
+import infoSrc from 'assets/img/info.png';
 import restartSrc from 'assets/img/restart.png';
 
 import 'assets/style.css';
@@ -46,6 +47,10 @@ const restartGame = (): void => {
   lives.val = startingLives;
   correctAnswers.val = 0;
   alertMessage.val = AlertMessage.Blank;
+};
+
+const displayInfo = (): void => {
+  alert("Divide the number on the left by the number on the right. Use the buttons below to help you!");
 };
 
 const Background = (): HTMLImageElement => {
@@ -232,6 +237,15 @@ const AlertContainer = (): HTMLDivElement => {
   );
 };
 
+const InfoContainer = (): HTMLDivElement => {
+  return div({ 
+    class: "info-container",
+    onclick: displayInfo,
+  },
+    img({ src: infoSrc }),
+  );
+};
+
 van.derive(() => {
   if (lives.val === 0) {
     alertMessage.val = AlertMessage.Lose;
@@ -263,6 +277,7 @@ van.add(domEntrypoint, Restart());
 van.add(domEntrypoint, GameInfo());
 van.add(domEntrypoint, App());
 van.add(domEntrypoint, AlertContainer());
+van.add(domEntrypoint, InfoContainer());
 
 const onLoad = (): void => {};
 
