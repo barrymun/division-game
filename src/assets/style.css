@@ -292,3 +292,30 @@ body {
 .info-panel-body-section {
   font-size: large;
 }
+
+.notice-panel {
+  z-index: 3;
+  pointer-events: auto;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 25%;
+  transform: translate(50%, 150%);
+
+  background-color: #ffffff;
+  color: #242424;
+
+  border: 1px solid #242424;
+  border-radius: 4px;
+}
+
+.notice-panel-body {
+  padding: 1em;
+}
+
+.notice-panel-message {
+  text-align: center;
+  color: #242424;
+}

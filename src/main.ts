@@ -17,6 +17,8 @@ const { button, div, img, p, span } = van.tags;
 
 const domEntrypoint = document.getElementById('app')! as HTMLDivElement;
 
+let alertMessageTimeoutId: number | undefined;
+
 let divisor = van.state(0);
 let numberToDivide = van.state(0);
 let answer = van.state(0);
@@ -27,7 +29,8 @@ let oneCount = van.state(0);
 let lives = van.state(startingLives);
 let correctAnswers = van.state(0);
 let alertMessage: State<AlertMessage> = van.state(AlertMessage.Blank);
-let showInfo = van.state(false);
+let infoPanelOpen = van.state(false);
+let noticePanelOpen = van.state(false);
 
 const setGameNumbers = (): void => {
   let randomDivisor = randomIntFromInterval({min: 2, max: 12});
@@ -49,6 +52,8 @@ const restartGame = (): void => {
   lives.val = startingLives;
   correctAnswers.val = 0;
   alertMessage.val = AlertMessage.Blank;
+  infoPanelOpen.val = false;
+  noticePanelOpen.val = false;
 };
 
 const Background = (): HTMLImageElement => {
@@ -238,7 +243,7 @@ const AlertContainer = (): HTMLDivElement => {
 const InfoContainer = (): HTMLDivElement => {
   return div({ 
     class: "info-container",
-    onclick: () => showInfo.val = true,
+    onclick: () => infoPanelOpen.val = true,
   },
     img({ src: infoSrc }),
   );
@@ -246,7 +251,7 @@ const InfoContainer = (): HTMLDivElement => {
 
 const InfoPanel = () => {
   return van.derive(() => {
-    if (!showInfo.val) return div();
+    if (!infoPanelOpen.val) return div();
   
     return div(
       { class: "info-panel" },
@@ -256,7 +261,7 @@ const InfoPanel = () => {
         img({ 
           class: "info-panel-close",
           src: closeSrc,
-          onclick: () => showInfo.val = false,
+          onclick: () => infoPanelOpen.val = false,
         }),
       ),
       div(
@@ -290,27 +295,61 @@ const InfoPanel = () => {
   });
 };
 
+const NoticePanel = () => {
+  return van.derive(() => {
+    if (!noticePanelOpen.val) return div();
+    
+    return div(
+      { class: "notice-panel" },
+      div(
+        { class: "notice-panel-body" },
+        div(
+          { class: "notice-panel-message" },
+          alertMessage,
+        ),
+        div(
+          button({ 
+            class: "notice-panel-button", 
+            onclick: restartGame,
+          }, "Play again")
+        )
+      )
+    );
+  });
+};
+
 van.derive(() => {
   if (lives.val === 0) {
     alertMessage.val = AlertMessage.Lose;
-    restartGame();
+    noticePanelOpen.val = true;
+    Object.assign(domEntrypoint.style, { pointerEvents: "none" });
+  } else {
+    Object.assign(domEntrypoint.style, { pointerEvents: "auto" });
   }
 
   if (correctAnswers.val === correctAnswersToWin) {
     alertMessage.val = AlertMessage.Win;
-    restartGame();
+    noticePanelOpen.val = true;
   }
 });
 
 van.derive(() => {
+  if (
+    alertMessage.val !== AlertMessage.Correct 
+    && alertMessage.val !== AlertMessage.Incorrect
+    && alertMessageTimeoutId
+  ) {
+    clearInterval(alertMessageTimeoutId);
+  }
+  
   if (alertMessage.val === AlertMessage.Correct) {
-    setTimeout(() => {
+    alertMessageTimeoutId = setTimeout(() => {
       alertMessage.val = AlertMessage.Blank;
     }, 1000);
   }
 
   if (alertMessage.val === AlertMessage.Incorrect) {
-    setTimeout(() => {
+    alertMessageTimeoutId = setTimeout(() => {
       alertMessage.val = AlertMessage.Blank;
     }, 2000);
   }
@@ -323,6 +362,7 @@ van.add(domEntrypoint, App());
 van.add(domEntrypoint, AlertContainer());
 van.add(domEntrypoint, InfoContainer());
 van.add(domEntrypoint, InfoPanel());
+van.add(domEntrypoint, NoticePanel());
 
 const onLoad = (): void => {};
 

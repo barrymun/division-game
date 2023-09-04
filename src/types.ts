@@ -2,6 +2,6 @@ export enum AlertMessage {
     Blank = '',
     Correct = 'Correct!',
     Incorrect = 'Incorrect!',
-    Lose = 'Try again!',
+    Lose = 'You lose!',
     Win = 'You win!',
 }
