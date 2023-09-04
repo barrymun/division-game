@@ -1,8 +1,8 @@
-# Divisor Game
+# Division Game
 
-Divisor Game is an interactive game where players are tested on their ability to divide numbers. Written in TypeScript and using ViteJS for development and bundling.
+Division Game is an interactive game where players are tested on their ability to divide numbers. Written in TypeScript and using ViteJS for development and bundling.
 
-![Game screenshot](./screenshot.png)
+![Game screenshot](./screenshots/screenshot-1.png)
 
 ## Objective
 
