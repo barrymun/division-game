@@ -190,27 +190,30 @@ const InteractiveStack = (): HTMLDivElement => {
   );
 };
 
-const Submit = (): HTMLDivElement => {
-  return div(
-    { class: "answer" },
-    button({
-      onclick: () => {
-        const sum = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
-        if (sum === answer.val) {
-          ++correctAnswers.val;
-          if (correctAnswers.val < correctAnswersToWin) {
-            alertMessage.val = AlertMessage.Correct;
+const Submit = () => {
+  return van.derive(() => {
+    const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+    return div(
+      { class: "answer" },
+      button({
+        disabled: sum === 0,
+        onclick: () => {
+          if (sum === answer.val) {
+            ++correctAnswers.val;
+            if (correctAnswers.val < correctAnswersToWin) {
+              alertMessage.val = AlertMessage.Correct;
+            }
+          } else {
+            --lives.val;
+            if (lives.val > 0) {
+              alertMessage.val = AlertMessage.Incorrect;
+            }
           }
-        } else {
-          --lives.val;
-          if (lives.val > 0) {
-            alertMessage.val = AlertMessage.Incorrect;
-          }
-        }
-        setGameNumbers();
-      },
-    }, "Submit")
-  );
+          setGameNumbers();
+        },
+      }, "Submit")
+    );
+  });
 };
 
 const App = (): HTMLDivElement => {

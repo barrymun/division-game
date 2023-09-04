@@ -37,9 +37,15 @@ button {
   width: 100%;
   font-size: 0.7rem;
 }
-button:hover {
+button:hover:enabled {
   cursor: pointer;
   opacity: 0.8;
+}
+button:disabled {
+  opacity: 0.5;
+}
+button:hover:disabled {
+  cursor: not-allowed;
 }
 
 body {
