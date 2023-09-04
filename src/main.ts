@@ -96,7 +96,7 @@ const Display = (): HTMLDivElement => {
   return div(
     { class: "display" },
     div(numberToDivide),
-    div(
+    div({ class: "text-medium" },
       span("Divided by "),
       span(divisor),
     ),

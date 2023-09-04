@@ -48,6 +48,10 @@ body {
   height: 100vh;
 }
 
+.text-medium {
+  font-size: medium;
+}
+
 #app {
   display: flex;
   align-items: center;
