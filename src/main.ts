@@ -239,7 +239,7 @@ const App = (): HTMLDivElement => {
 const AlertContainer = (): HTMLDivElement => {
   return div(
     { class: "alert-container" },
-    van.derive(() => Alert(alertMessage.val)),
+    () => Alert(alertMessage.val),
   );
 };
 
