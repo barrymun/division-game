@@ -73,14 +73,12 @@ const Restart = (): HTMLDivElement => {
 };
 
 const Lives = () => {
-  return van.derive(() => {
-    return div(
-      Array.from(
-        Array(lives.val))
-          .map(() => img({ src: heartSrc, class: "life" })
-      )
-    );
-  });
+  return div(
+    Array.from(
+      Array(lives.val))
+        .map(() => img({ src: heartSrc, class: "life" })
+    )
+  );
 };
 
 const Completed = (): HTMLDivElement => {
@@ -95,7 +93,7 @@ const Completed = (): HTMLDivElement => {
 const GameInfo = (): HTMLDivElement => {
   return div(
     { class: "game-info" },
-    Lives(),
+    () => Lives(),
     Completed(),
   );
 };
@@ -112,19 +110,17 @@ const Display = (): HTMLDivElement => {
 };
 
 const InteractiveSum = () => {
-  return van.derive(() => {
-    const previousSum: number = twentyCount.oldVal * 20 + tenCount.oldVal * 10 + fiveCount.oldVal * 5 + oneCount.oldVal;
-    const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
-    if (sum === 0) {
-      return div({
-        class: previousSum > 0 ? "interactive-sum interactive-sum-hide" : "",
-      });
-    } else {
-      return div({
-        class: previousSum === 0 ? "interactive-sum interactive-sum-show" : "interactive-sum",
-      }, sum);
-    }
-  });
+  const previousSum: number = twentyCount.oldVal * 20 + tenCount.oldVal * 10 + fiveCount.oldVal * 5 + oneCount.oldVal;
+  const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+  if (sum === 0) {
+    return div({
+      class: previousSum > 0 ? "interactive-sum interactive-sum-hide" : "",
+    });
+  } else {
+    return div({
+      class: previousSum === 0 ? "interactive-sum interactive-sum-show" : "interactive-sum",
+    }, sum);
+  }
 };
 
 const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: number; }): HTMLDivElement => {
@@ -147,22 +143,22 @@ const Decrementor = ({ handleClick, count }: { handleClick: () => void; count: n
 
 const InteractiveStack = (): HTMLDivElement => {
   return div({class: "interactive-stack"},
-    van.derive(() => Decrementor({ 
+    () => Decrementor({ 
       handleClick: () => twentyCount.val > 0 ? --twentyCount.val : 0,
       count: twentyCount.val,
-    })),
-    van.derive(() => Decrementor({ 
+    }),
+    () => Decrementor({ 
       handleClick: () => tenCount.val > 0 ? --tenCount.val : 0,
       count: tenCount.val,
-    })),
-    van.derive(() => Decrementor({ 
+    }),
+    () => Decrementor({ 
       handleClick: () => fiveCount.val > 0 ? --fiveCount.val : 0,
       count: fiveCount.val,
-    })),
-    van.derive(() => Decrementor({ 
+    }),
+    () => Decrementor({ 
       handleClick: () => oneCount.val > 0 ? --oneCount.val : 0,
       count: oneCount.val,
-    })),
+    }),
     div(
       button({
         class: "incrementor",
@@ -191,29 +187,27 @@ const InteractiveStack = (): HTMLDivElement => {
 };
 
 const Submit = () => {
-  return van.derive(() => {
-    const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
-    return div(
-      { class: "answer" },
-      button({
-        disabled: sum === 0,
-        onclick: () => {
-          if (sum === answer.val) {
-            ++correctAnswers.val;
-            if (correctAnswers.val < correctAnswersToWin) {
-              alertMessage.val = AlertMessage.Correct;
-            }
-          } else {
-            --lives.val;
-            if (lives.val > 0) {
-              alertMessage.val = AlertMessage.Incorrect;
-            }
+  const sum: number = twentyCount.val * 20 + tenCount.val * 10 + fiveCount.val * 5 + oneCount.val;
+  return div(
+    { class: "answer" },
+    button({
+      disabled: sum === 0,
+      onclick: () => {
+        if (sum === answer.val) {
+          ++correctAnswers.val;
+          if (correctAnswers.val < correctAnswersToWin) {
+            alertMessage.val = AlertMessage.Correct;
           }
-          setGameNumbers();
-        },
-      }, "Submit")
-    );
-  });
+        } else {
+          --lives.val;
+          if (lives.val > 0) {
+            alertMessage.val = AlertMessage.Incorrect;
+          }
+        }
+        setGameNumbers();
+      },
+    }, "Submit")
+  );
 };
 
 const App = (): HTMLDivElement => {
@@ -225,13 +219,13 @@ const App = (): HTMLDivElement => {
     ),
     div(
       { class: "mid-section" },
-      InteractiveSum(),
+      () => InteractiveSum(),
     ),
     div(
       { class: "bottom-section" },
-      InteractiveStack(),
+      () => InteractiveStack(),
       Spacer(),
-      Submit(),
+      () => Submit(),
     ),
   );
 };
@@ -253,72 +247,68 @@ const InfoContainer = (): HTMLDivElement => {
 };
 
 const InfoPanel = () => {
-  return van.derive(() => {
-    if (!infoPanelOpen.val) return div();
+  if (!infoPanelOpen.val) return div();
   
-    return div(
-      { class: "info-panel" },
-      div(
-        { class: "info-panel-header" },
-        div("How to play"),
-        img({ 
-          class: "info-panel-close",
-          src: closeSrc,
-          onclick: () => infoPanelOpen.val = false,
-        }),
+  return div(
+    { class: "info-panel" },
+    div(
+      { class: "info-panel-header" },
+      div("How to play"),
+      img({ 
+        class: "info-panel-close",
+        src: closeSrc,
+        onclick: () => infoPanelOpen.val = false,
+      }),
+    ),
+    div(
+      { class: "info-panel-body" },
+      p(
+        { class: "info-panel-body-section" },
+        span("Divide the number on the left by the number on the right."),
       ),
-      div(
-        { class: "info-panel-body" },
-        p(
-          { class: "info-panel-body-section" },
-          span("Divide the number on the left by the number on the right."),
-        ),
-        p(
-          { class: "info-panel-body-section" },
-          span("Use the buttons to add or subtract from the sum."),
-        ),
-        p(
-          { class: "info-panel-body-section" },
-          span("Click submit to check your answer."),
-        ),
-        p(
-          { class: "info-panel-body-section" },
-          span("You have "),
-          span(startingLives),
-          span(" lives."),
-        ),
-        p(
-          { class: "info-panel-body-section" },
-          span("You need "),
-          span(correctAnswersToWin),
-          span(" correct answers to win."),
-        ),
+      p(
+        { class: "info-panel-body-section" },
+        span("Use the buttons to add or subtract from the sum."),
       ),
-    );
-  });
+      p(
+        { class: "info-panel-body-section" },
+        span("Click submit to check your answer."),
+      ),
+      p(
+        { class: "info-panel-body-section" },
+        span("You have "),
+        span(startingLives),
+        span(" lives."),
+      ),
+      p(
+        { class: "info-panel-body-section" },
+        span("You need "),
+        span(correctAnswersToWin),
+        span(" correct answers to win."),
+      ),
+    ),
+  );
 };
 
 const NoticePanel = () => {
-  return van.derive(() => {
-    if (!noticePanelOpen.val) return div();
+  if (!noticePanelOpen.val) return div();
     
-    return div(
-      { class: "notice-panel" },
+  return div(
+    { class: "notice-panel" },
+    div(
+      { class: "notice-panel-body" },
       div(
-        { class: "notice-panel-body" },
-        div(
-          { class: "notice-panel-message" },
-          alertMessage,
-        ),
-        div(
-          button({ 
-            class: "notice-panel-button", 
-            onclick: restartGame,
-          }, "Play again")
-        )
+        { class: "notice-panel-message" },
+        alertMessage,
+      ),
+      div(
+        button({ 
+          class: "notice-panel-button", 
+          onclick: restartGame,
+        }, "Play again")
       )
-    );
-  });
+    )
+  );
 };
 
 van.derive(() => {
@@ -364,8 +354,8 @@ van.add(domEntrypoint, GameInfo());
 van.add(domEntrypoint, App());
 van.add(domEntrypoint, AlertContainer());
 van.add(domEntrypoint, InfoContainer());
-van.add(domEntrypoint, InfoPanel());
-van.add(domEntrypoint, NoticePanel());
+van.add(domEntrypoint, () => InfoPanel());
+van.add(domEntrypoint, () => NoticePanel());
 
 const onLoad = (): void => {};
 
